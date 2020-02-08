@@ -1,0 +1,51 @@
+{
+	"register": {
+		"firstname": "anuuua",
+		"lastname": "ggggg",
+		"email": "anusah123456789123456@gmail.com",
+		"password": "Ssaaaa@123456"
+	},
+	"login": {
+		"email": "anusah123456789123456@gmail.com",
+		"password": "Ssaaaa@123456"
+	},
+	"forgotPassword": {
+		"email": "anusah123456789123456@gmail.com"
+	},
+	"resetPassword": {
+		"password": "Ssaaaa@12",
+		"headers": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXlsb2FkIjp7fSwiaWF0IjoxNTUyMzgxNDk5LCJleHAiOjE1NTIzODg2OTl9.FT7XMPksBvtXqBuQwKoQk0RwFBewqPlCY3RkKuuSEO8"
+	},
+	"createNote": {
+		"title": "anusha",
+		"description": "Mumbaia"
+	},
+	"isArchived": {
+		"noteID": "5cac4d05eab19a0a215e657e"
+	},
+	"getNotes": {
+		"userId":"5c88f838c3761240119f677c"
+	},
+	"isTrashed":{
+		"noteID": "5cac4d05eab19a0a215e657e"
+	},
+	"deleteNote":{
+		"noteID": "5caf3f821dc782589e74c39e"
+	},
+	"updateColor":{
+		"noteID": "5caf3f821dc782589e74c39e",
+		"color":"#84FFFF"
+	},
+	"editTitle":{
+		"noteID":"5cac4d05eab19a0a215e657e",
+		"title":"anusha"
+	},
+	"editDescription":{
+		"noteID":"5cac4d05eab19a0a215e657e",
+		"description":"anusha"
+	},
+	"doPinned":{
+		"noteID":"5cac4d05eab19a0a215e657e",
+		"pinned":"true"
+	}
+}

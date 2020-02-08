@@ -1,0 +1,45 @@
+{
+  "name": "fundoo-server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "./node_modules/.bin/mocha --reporter spec",
+    "start": "nodemon server.js",
+    "dev": "export  NODE_ENV=development && node server.js",
+    "prod": "export  NODE_ENV=production && node server.js"
+  },
+  "author": "Anush",
+  "license": "ISC",
+  "dependencies": {
+    "ajax": "0.0.4",
+    "aws-sdk": "^2.438.0",
+    "axios": "^0.18.0",
+    "bcrypt": "^3.0.4",
+    "body-parser": "^1.18.3",
+    "cors": "^2.8.5",
+    "dotenv": "^6.2.0",
+    "env": "0.0.2",
+    "express": "^4.16.4",
+    "express-validator": "^5.3.1",
+    "jsonwebtoken": "^8.5.0",
+    "mongoose": "^5.4.19",
+    "mongoose-sequence": "^5.0.1",
+    "multer": "^1.4.1",
+    "multer-s3": "^2.9.0",
+    "node-schedule": "^1.3.2",
+    "nodemailer": "^5.1.1",
+    "nodemailer-express-handlebars": "^3.0.0",
+    "nodemon": "^1.19.4",
+    "npm": "^6.9.0",
+    "redis": "^2.8.0",
+    "response-time": "^2.3.2",
+    "winston": "^3.2.1"
+  },
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "chai-http": "^4.2.1",
+    "mocha": "^6.0.2",
+    "request": "^2.88.0"
+  }
+}
