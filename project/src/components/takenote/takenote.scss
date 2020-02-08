@@ -1,0 +1,109 @@
+@font-face {
+  font-family: googlefonts;
+  src: url("../../assets/GoogleSans-Regular.ttf");
+}
+.displaynote {
+  margin-top: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  .takenote {
+    border-radius: 9px;
+    border: 1px solid #dadce0;
+    font-family: "googlefonts", arial, sans-serif;
+    width: 600px;
+    [contentEditable="true"]:empty:not(:focus):before {
+      content: attr(data-text);
+    }
+    .Border {
+      border-color: white;
+      border: none;
+      outline: none;
+      user-select: none;
+      font-family: "googlefonts", arial, sans-serif;
+      font-size: 14px;
+      height: 35px !important;
+    }
+    .takecontent {
+      position: relative;
+      text-align: left;
+      letter-spacing: 0.01428571em;
+      font-family: "googlefonts", arial, sans-serif;
+      font-size: 0.875rem;
+      font-weight: 400;
+      color: #80868b;
+      line-height: 1.25rem;
+      padding: 12px;
+    }
+    .note-icon {
+      position: absolute;
+      right: 138px;
+      top: 4px;
+    }
+    .note-icon2 {
+      position: absolute;
+      right: 80px;
+      top: 4px;
+    }
+    .note-icon3 {
+      position: absolute;
+      top: 4px;
+      right: 22px;
+    }
+  }
+}
+
+.takenote2 {
+  border-radius: 9px;
+  border: 1px solid #dadce0;
+  font-family: "googlefonts", arial, sans-serif;
+  width: 600px;
+}
+
+.textArea {
+  border: none;
+  outline: none;
+  user-select: none;
+  font-family: "googlefonts", arial, sans-serif;
+  width: 500px;
+  resize: none;
+  background: transparent;
+  font-family: "googlefonts", arial, sans-serif;
+  font-size: 14px;
+  overflow: hidden;
+  min-height: 35px;
+}
+
+.textnote {
+  margin-bottom: 10px;
+  color: rgb(173, 166, 166);
+  border: none;
+  outline: none;
+  user-select: none;
+}
+.display {
+  padding: 5px 7px;
+  margin: 0 !important;
+  height: 42px;
+}
+.close-btn {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  height: 43px;
+  opacity: 0.81;
+}
+.icon-dis {
+  position: relative;
+  .md-button {
+    text-transform: none !important;
+  }
+}
+.Border {
+  height: 40px;
+}
+.pin {
+  position: relative;
+  left: 36px;
+  height: 40px;
+}

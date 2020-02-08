@@ -1,0 +1,92 @@
+<section>
+  <div class="disnote">
+
+    <md-card class="mdcard" v-for='array in card' :key='array.id' v-bind:style="{'background-color': array.color}">
+      <div>
+        <div style="display: flex;">
+          <div class="title"  @click="showDialogpop(array)">
+            {{array.title}}
+          </div>
+          <div style="height: 36px;" v-if="!trash" class="pinbar">
+            <md-button v-if='array.pinned' class="md-icon-button" @click=doUnPinned(array)>
+              <img src="../../assets/unpinbar.svg" alt="" srcset="">
+            </md-button>
+            <md-button v-if='!array.pinned' class="md-icon-button" @click="pinned(array)">
+              <img src="../../assets/pin.svg" alt="" srcset="">
+            </md-button>
+          </div>
+        </div>
+        <div class="dec">
+          {{array.description}}
+        </div>
+
+        <div>
+          <md-chip class="chip" md-deletable>Decsl</md-chip>
+        </div>
+        <div v-if="trash" style="display: flex;">
+          <div class="trash">
+            <md-button class="md-icon-button" @click="deleteForever(array)">
+              <img src="../../assets/deleteforever.svg" alt="" srcset="">
+            </md-button>
+            <md-tooltip md-direction="bottom">Delete forever </md-tooltip>
+
+          </div>
+          <div class="trash">
+            <md-button class="md-icon-button" @click="restore(array)">
+              <img src="../../assets/restore.svg" alt="" srcset="">
+            </md-button>
+            <md-tooltip md-direction="bottom">Restore</md-tooltip>
+
+          </div>
+        </div>
+        <div v-if="!trash">
+          <iconlist class="icon" :notecard="array" :more="archived" @card="archive" @unarchivecard="unarchive"
+            @deleteNote="trashNote"></iconlist>
+        </div>
+      </div>
+    </md-card>
+
+  </div>
+  <div>
+    <md-dialog :md-active.sync="showDialog" v-bind:style="{'background-color':updatecolor}">
+      <div class="row display">
+        <div class="Border">
+          <textarea placeholder="Title" v-model="updatetitle" class="textArea" matTextareaAutosize></textarea>
+        </div>
+        <div class="pin">
+          <div v-if='pinflag == false'>
+            <md-button class="md-icon-button" @click='updatepinned'>
+              <img src="../../assets/pin.svg" alt="" srcset="">
+            </md-button>
+          </div>
+          <div v-if='pinflag == true'>
+            <md-button class="md-icon-button" @click='updatepinned'>
+              <img src="../../assets/unpinbar.svg" alt="" srcset="">
+            </md-button>
+          </div>
+        </div>
+      </div>
+
+      <div class="row display" style="height: 48px;">
+        <div class="Border">
+          <textarea placeholder="Take a note..." v-model="updatedescription" class="textArea"
+            matTextareaAutosize></textarea>
+        </div>
+      </div>
+
+      <div class="icon-dis">
+        <iconlist></iconlist>
+        <div class="close-btn">
+          <md-button @click="update()">
+            Close
+          </md-button>
+        </div>
+      </div>
+
+ 
+
+      <!-- </md-card> -->
+      <!-- </md-content> -->
+    </md-dialog>
+  </div>
+</section>

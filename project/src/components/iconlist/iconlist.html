@@ -1,0 +1,77 @@
+<div class="iconlist">
+  <div class="iconsdis">
+    <md-button class="md-icon-button">
+      <img src="../../assets/bell.svg" alt="" srcset="">
+    </md-button>
+  </div>
+  <div class="iconsdis">
+    <md-button class="md-icon-button">
+      <img src="../../assets/user.svg" alt="" srcset="">
+    </md-button>
+  </div>
+  <div class="iconsdis">
+    <md-menu md-direction="top-start">
+      <md-button class="md-icon-button" md-menu-trigger>
+        <img src="../../assets/color.svg" alt="" srcset="">
+      </md-button>
+
+      <md-menu-content>
+        <div class="displaycolor" v-for=" colors in colorArray">
+          <div v-for="color in colors">
+            <md-button class="md-fab md-mini" @click="colorsEdit(color.color,notecard)"
+              v-bind:style="{ 'background-color': color.color }">
+            </md-button>
+          </div>
+        </div>
+      </md-menu-content>
+    </md-menu>
+  </div>
+  <div class="iconsdis">
+    <md-button class="md-icon-button" @click="$refs.file.click()" @change="processFile($event)">
+      <input type="file" ref="file" style="display: none;" />
+      <img src="../../assets/image.svg" alt="" srcset="">
+    </md-button>
+  </div>
+  <div class="iconsdis">
+    <md-button v-if="more !='archive'" class="md-icon-button" @click="doArchive(notecard)">
+      <img src="../../assets/archive.svg" alt="" srcset="">
+    </md-button>
+    <md-button v-if="more =='archive'" class="md-icon-button" @click="doUnArchive(notecard)">
+      <img src="../../assets/unarchive.svg" alt="" srcset="">
+    </md-button>
+  </div>
+
+  <div class="iconsdis">
+
+    <div class="labelmenu">
+      <md-menu md-size="medium" :md-offset-x="127" :md-offset-y="-36">
+        <md-button class="md-icon-button" md-menu-trigger>
+          <img src="../../assets/more.svg" alt="" srcset="">
+        </md-button>
+        <md-menu-content>
+          <md-menu-item>
+            <div @click="deletecard(notecard)">
+              Delete Note
+
+            </div>
+          </md-menu-item>
+          <md-menu-item>
+            <md-menu md-size="medium" :md-offset-x="127" :md-offset-y="-36">
+              <div md-menu-trigger v-on:click.stop>Start</div>
+              <md-menu-content>
+                <md-menu-item>My Item 1</md-menu-item>
+                <md-menu-item>My Item 2</md-menu-item>
+                <md-menu-item>My Item 3</md-menu-item>
+              </md-menu-content>
+            </md-menu>
+          </md-menu-item>
+
+        </md-menu-content>
+      </md-menu>
+    </div>
+
+
+  </div>
+
+
+</div>

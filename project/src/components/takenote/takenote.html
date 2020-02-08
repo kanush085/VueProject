@@ -1,0 +1,77 @@
+<div>
+    <div v-if="flag === true" class="displaynote">
+        <md-card class="takenote">
+            
+            <div @click='reverseFlag' data-text="Take a note..." class="takecontent md-primary" contenteditable="true">
+            </div>
+            <div class="note-icon">
+
+                <md-button class="md-icon-button">
+                    <img src="../../assets/new-list.svg" alt="" srcset="">
+                </md-button>
+
+            </div>
+
+            <div class="note-icon2">
+
+                <md-button class="md-icon-button">
+                    <img src="../../assets/pen.svg" alt="" srcset="">
+                </md-button>
+
+            </div>
+            <div class="note-icon3">
+
+                <md-button class="md-icon-button">
+                    <img src="../../assets/image2.svg" alt="" srcset="">
+                </md-button>
+
+            </div>
+
+        </md-card>
+    </div>
+
+
+    <div v-if="flag==false" class="displaynote">
+        <md-card class="takenote2" v-bind:style="{'background-color':bgcolor }">
+            <div class="row display">
+                <div class="Border">
+                    <textarea v-model="takeNote.title" placeholder="Title" class="textArea"
+                        matTextareaAutosize></textarea>
+                </div>
+                <div class="pin">
+                    <div v-if='pinflag == false'>
+                        <md-button class="md-icon-button" @click='pinned'>
+                            <img src="../../assets/pin.svg" alt="" srcset="">
+                        </md-button>
+                    </div>
+                    <div v-if='pinflag == true'>
+                        <md-button class="md-icon-button" @click='pinned'>
+                            <img src="../../assets/unpinbar.svg" alt="" srcset="">
+                        </md-button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row display" style="height: 48px;">
+                <div class="Border">
+                    <textarea v-model="takeNote.description" placeholder="Take a note..." class="textArea"
+                        matTextareaAutosize></textarea>
+                </div>
+            </div>
+
+            <div class="icon-dis">
+                <iconlist @cardcolor="changeColor"></iconlist>
+                <div class="close-btn">
+                    <md-button @click='addnote'>
+                        Close
+                    </md-button>
+                </div>
+            </div>
+
+
+
+        </md-card>
+    </div>
+
+
+</div>

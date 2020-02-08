@@ -1,0 +1,11 @@
+<div>
+    <takenote></takenote>
+    <div class="pinned" v-if='cards.length > 0'>
+        PINNED
+    </div>
+    <displaynote :card="cards" @pinnedcards="recievedPinned"></displaynote>
+    <div class="others" v-if='Unpinnedcards.length >0 && cards.length>0'>
+        OTHERS
+    </div>
+    <displaynote :card="Unpinnedcards" @unpinnedcards="recieveUnPinned"></displaynote>
+</div>

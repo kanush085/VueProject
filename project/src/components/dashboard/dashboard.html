@@ -1,0 +1,251 @@
+<div class="page-container">
+  <md-toolbar class="md-primary">
+    <md-button class="md-icon-button" @click="toggleMenu">
+      <md-icon>menu</md-icon>
+    </md-button>
+    <img v-if="imageflag" src="../../assets/keep_48dp.png" alt="keep" srcset="">
+
+    <span class="md-title">{{Keepname == "Keep" ? "Keep" : Keepname }}</span>
+    <div class="searchcard">
+      <md-autocomplete class="search" v-model="selectedEmployee" :md-options="employees" md-layout="box">
+        <label>Search...</label>
+      </md-autocomplete>
+    </div>
+    <div class="listview">
+      <md-button class="md-icon-button">
+        <md-icon :md-src="require('/home/admin1/VueProject/project/src/assets/listview.svg')">
+        </md-icon>
+        <md-tooltip md-direction="bottom">List view</md-tooltip>
+      </md-button>
+    </div>
+    <div class="md-toolbar-section-end">
+      <md-menu md-direction="bottom-start" md-size="medium" md-align-trigger>
+        <md-button md-menu-trigger class="md-fab md-mini"
+          v-bind:style="{ 'background-image':'url(' +image+ ')','background-size':'cover'}">
+        </md-button>
+        <md-tooltip md-direction="bottom">{{username}}</md-tooltip>
+
+        <md-menu-content>
+          <div class="pro-icon">
+            <md-menu-item>
+              <md-button class="md-fab md-mini"
+                v-bind:style="{ 'background-image':'url(' +image+ ')','background-size':'cover'}"
+                @click="$refs.file.click()" @change="processFile($event)">
+                <input type="file" ref="file" style="display: none;" />
+              </md-button>
+              <md-tooltip md-direction="bottom">{{username}}</md-tooltip>
+            </md-menu-item>
+          </div>
+          <div>
+            <md-menu-item>
+              <div class="user">
+                {{username}}
+              </div>
+            </md-menu-item>
+            <md-menu-item>
+              <div class="user">
+                {{useremail}}
+              </div>
+            </md-menu-item>
+          </div>
+          <md-menu-item>
+            <div class="logout">
+              <md-button type="submit" class="md-raised md-primary" @click="logout">Log Out</md-button>
+            </div>
+          </md-menu-item>
+        </md-menu-content>
+      </md-menu>
+    </div>
+  </md-toolbar>
+
+
+  <md-app>
+    <md-app-drawer :md-active.sync="menuVisible" md-persistent="full">
+      <md-list>
+        <md-list-item @click="note" v-bind:class="url === 'Notes' ? 'bacclass' :'bacclassss' ">
+          <md-icon>lightbulb_outline</md-icon>
+          <router-link to="/dashboard/note" class="links">
+            <span class="md-list-item-text">Notes</span>
+          </router-link>
+        </md-list-item>
+        <md-list-item>
+          <md-icon>notifications_none</md-icon>
+          <span class="md-list-item-text">Reminder</span>
+        </md-list-item>
+      </md-list>
+      <hr>
+      <md-list>
+        <span class="label">Labels</span>
+        <md-list-item v-for='label in labelArray'>
+          <img src="../../assets//addlabel.svg" alt="" srcset="">
+          <span class="labeltext">{{label.label}}</span>
+        </md-list-item>
+        <md-list-item @click="showDialog = true">
+          <md-icon>edit</md-icon>
+          <span class="md-list-item-text">Edit Labels</span>
+        </md-list-item>
+      </md-list>
+      <hr>
+      <md-list>
+        <md-list-item @click='archive' v-bind:class="url === 'Archive' ? 'bacclass' :'bacclassss'">
+          <md-icon>archive</md-icon>
+          <router-link to="/dashboard/archive" class="links">
+            <span class="md-list-item-text">Archive</span>
+          </router-link>
+        </md-list-item>
+        <md-list-item @click='trash' v-bind:class="url === 'Trash' ? 'bacclass' :'bacclassss'">
+          <md-icon :md-src="require('/home/admin1/VueProject/project/src/assets/trash.svg')"></md-icon>
+          <router-link to="/dashboard/trash" class="links">
+            <span class="md-list-item-text">Trash</span>
+          </router-link>
+        </md-list-item>
+      </md-list>
+    </md-app-drawer>
+
+    <md-app-content>
+      <router-view></router-view>
+      <md-dialog :md-active.sync="showDialog">
+        <md-dialog-title>Edit Labels</md-dialog-title>
+        <md-content>
+          <div class="main1 form">
+            <md-button class="md-icon-button" @click="wrong">
+              <img src="../../assets/labelcancel.svg" alt="" srcset="">
+            </md-button>
+            <md-field>
+              <md-input name="createlabel" v-model="form.label" id="first-name" placeholder="Create new label" />
+            </md-field>
+            <md-button class="md-icon-button" @click="tick">
+              <img src="../../assets/correct.svg" alt="" srcset="">
+            </md-button>
+          </div>
+        </md-content>
+        <div class="dislabel" v-for='label in labelArray'>
+          <md-button class="md-icon-button btn1">
+            <img src="../../assets/savelabel.svg" alt="" srcset="">
+          </md-button>
+          <md-button class="md-icon-button btn2" @click="deletelabel(label)">
+            <img src="../../assets/trashlabel.svg" alt="" srcset="">
+          </md-button>
+          <div class="gun">
+            <input type="text" class="gun" v-model="label.label" @click="reversflag">
+          </div>
+          <md-button class="md-icon-button" v-if="flag==false" @click="reversflag(label)">
+            <img src="../../assets/pencil.svg" alt="" srcset="">
+          </md-button>
+          <md-button class="md-icon-button" v-if="flag==true" @click="editlabels(label);reversflag">
+            <img src="../../assets/correct.svg" alt="" srcset="">
+          </md-button>
+        </div>
+        <hr>
+        <md-dialog-actions>
+          <md-button class="btn" @click="showDialog = false">Done</md-button>
+        </md-dialog-actions>
+      </md-dialog>
+    </md-app-content>
+  </md-app>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <!-- <div class="contentdisplay">
+
+    <div v-if="menuVisible" class="menu-view">
+      <div class="viewport">
+        <md-list>
+          <md-list-item @click="note" v-bind:class="url === 'Notes' ? 'bacclass' :'bacclassss' ">
+            <md-icon>lightbulb_outline</md-icon>
+            <router-link to="/dashboard/note" class="links">
+              <span class="md-list-item-text">Notes</span>
+            </router-link>
+          </md-list-item>
+          <md-list-item>
+            <md-icon>notifications_none</md-icon>
+            <span class="md-list-item-text">Reminder</span>
+          </md-list-item>
+        </md-list>
+        <hr>
+        <md-list>
+          <span class="label">Labels</span>
+          <md-list-item v-for='label in labelArray'>
+            <img src="../../assets//addlabel.svg" alt="" srcset="">
+            <span class="labeltext">{{label.label}}</span>
+          </md-list-item>
+          <md-list-item @click="showDialog = true">
+            <md-icon>edit</md-icon>
+            <span class="md-list-item-text">Edit Labels</span>
+          </md-list-item>
+        </md-list>
+        <hr>
+        <md-list>
+          <md-list-item @click='archive' v-bind:class="url === 'Archive' ? 'bacclass' :'bacclassss'">
+            <md-icon>archive</md-icon>
+            <router-link to="/dashboard/archive" class="links">
+              <span class="md-list-item-text">Archive</span>
+            </router-link>
+          </md-list-item>
+
+
+
+          <md-list-item @click='trash' v-bind:class="url === 'Trash' ? 'bacclass' :'bacclassss'">
+            <md-icon :md-src="require('/home/bridge/VueProject/project/src/assets/trash.svg')"></md-icon>
+            <router-link to="/dashboard/trash" class="links">
+              <span class="md-list-item-text">Trash</span>
+            </router-link>
+          </md-list-item>
+        </md-list>
+      </div>
+    </div>
+    <div class="view">
+      <router-view></router-view>
+    </div>
+  </div>
+
+
+  <md-dialog :md-active.sync="showDialog">
+    <md-dialog-title>Edit Labels</md-dialog-title>
+    <md-content>
+      <div class="main1 form">
+        <md-button class="md-icon-button" @click="wrong">
+          <img src="../../assets/labelcancel.svg" alt="" srcset="">
+        </md-button>
+        <md-field>
+          <md-input name="createlabel" v-model="form.label" id="first-name" placeholder="Create new label" />
+        </md-field>
+        <md-button class="md-icon-button" @click="tick">
+          <img src="../../assets/correct.svg" alt="" srcset="">
+        </md-button>
+      </div>
+    </md-content>
+    <div class="dislabel" v-for='label in labelArray'>
+      <md-button class="md-icon-button btn1">
+        <img src="../../assets/savelabel.svg" alt="" srcset="">
+      </md-button>
+      <md-button class="md-icon-button btn2" @click="deletelabel(label)">
+        <img src="../../assets/trashlabel.svg" alt="" srcset="">
+      </md-button>
+      <div class="gun">
+        <input type="text" class="gun" v-model="label.label" @click="reversflag">
+      </div>
+      <md-button class="md-icon-button" v-if="flag==false" @click="reversflag">
+        <img src="../../assets/pencil.svg" alt="" srcset="">
+      </md-button>
+      <md-button class="md-icon-button" v-if="flag==true" @click="editlabels(label);reversflag">
+        <img src="../../assets/correct.svg" alt="" srcset="">
+      </md-button>
+    </div>
+    <hr>
+    <md-dialog-actions>
+      <md-button class="btn" @click="showDialog = false">Done</md-button>
+    </md-dialog-actions>
+  </md-dialog> -->
+
+</div>

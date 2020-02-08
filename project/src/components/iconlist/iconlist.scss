@@ -1,0 +1,50 @@
+.iconlist {
+  display: flex;
+
+  .close {
+    position: relative;
+    left: 180px;
+    opacity: 0.81;
+  }
+
+  .iconsdis {
+    width: 42px;
+  }
+
+}
+
+.displaycolor {
+  margin-top: 2px;
+  display: flex;
+  flex-flow: row wrap;
+}
+
+.md-fab.md-dense,
+.md-fab.md-mini {
+  width: 26px !important;
+  height: 23px !important;
+}
+
+.md-list-item-content {
+  div {
+    cursor: pointer !important;
+    font-size: 0.875rem !important;
+    font-weight: 400 !important;
+    letter-spacing: 0.01428571em !important;
+    line-height: 1.25rem !important;
+    min-height: 34px !important;
+    width: 100%;
+  }
+}
+
+.labelmenu {
+  .md-button .md-ripple {
+    display: flex;
+    justify-content: left !important;
+    align-items: center;
+  }
+
+  .md-button {
+    width: 100% !important
+  }
+}

@@ -1,0 +1,81 @@
+<section class="register">
+  <form action="" novalidate @submit.prevent="validateUser">
+    <div class="centered-container">
+      <md-card class="md-layout-item md-size-50 md-small-size-100">
+        <md-content>
+          <div class="title">
+            <md-card-header>
+              <md-card-header-text>
+                <div class="md-title fundoo">
+                  <span class="f">F</span>
+                  <span class="u">U</span>
+                  <span class="n">N</span>
+                  <span class="d">D</span>
+                  <span class="o">O</span>
+                  <span class="oo">O</span>
+                </div>
+                <div class="md-subhead login">Register</div>
+              </md-card-header-text>
+            </md-card-header>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6">
+              <md-field :class="getValidationClass('firstname')">
+                <label>First Name</label>
+                <md-input id="first-name" v-model="form.firstname" :disabled="sending" autocomplete="off" autofocus />
+                <span class="md-error" v-if="!$v.form.firstname.required">The firstname is required</span>
+                <span class="md-error" v-else-if="!$v.form.firstname.minlength">Invalid firstname</span>
+              </md-field>
+            </div>
+
+            <div class="col-md-6">
+              <md-field :class="getValidationClass('lastname')">
+                <label>Last Name</label>
+                <md-input id="last-name" v-model="form.lastname" :disabled="sending" autocomplete="off" type="text" />
+                <span class="md-error" v-if="!$v.form.lastname.required">The lastname is required</span>
+                <span class="md-error" v-else-if="!$v.form.lastname.minlength">Invalid lastname</span>
+              </md-field>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <md-field :class="getValidationClass('email')">
+                <label>E-mail</label>
+                <md-input id="first-name" v-model="form.email" :disabled="sending" autocomplete="off" autofocus />
+                <span class="md-error" v-if="!$v.form.email.required">The Email is required</span>
+                <span class="md-error" v-else-if="!$v.form.email.minlength">Invalid Email</span>
+              </md-field>
+            </div>
+
+            <div class="col-md-6">
+              <md-field md-has-password :class="getValidationClass('password')">
+                <label>Password</label>
+                <md-input id="last-name" v-model="form.password" :disabled="sending" autocomplete="off"
+                  type="password" />
+                <span class="md-error" v-if="!$v.form.password.required">The password is required</span>
+                <span class="md-error" v-else-if="!$v.form.password.minlength">Invalid password</span>
+              </md-field>
+            </div>
+          </div>
+
+          <div class="actions md-layout md-alignment-center-space-between">
+            <!-- <a href="/resetpassword">Reset password</a> -->
+            <md-button v-on:click='login' class="md-raised md-primary">Sign In</md-button>
+            <md-button type="submit" class="md-raised md-primary">Sign Up</md-button>
+          </div>
+
+          <div class="loading-overlay" v-if="loading">
+            <md-progress-spinner md-mode="indeterminate" :md-stroke="2"></md-progress-spinner>
+          </div>
+
+        </md-content>
+
+      </md-card>
+      <md-snackbar :md-active.sync="userSaved">The user {{ lastUser }} already exists!
+        <md-button class="md-primary" @click="showSnackbar">Ok</md-button>
+
+      </md-snackbar>
+    </div>
+  </form>
+</section>
