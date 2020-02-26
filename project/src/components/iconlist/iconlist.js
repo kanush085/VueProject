@@ -1,4 +1,12 @@
 import noteservice from "../../service/noteservice";
+import {
+  reverse,
+  filterBy,
+  findBy
+} from '../../service/filter';
+
+
+
 export default {
   name: "iconlist",
   components: {},
@@ -12,34 +20,84 @@ export default {
   },
   data() {
     return {
+      flag1: false,
+      Addlabel: "",
+      checklabel: "",
       colorArray: [
-        [
-          { color: "#FFFFFF", name: "White" },
-          { color: "#F28B82", name: "Red" },
-          { color: "#FBBC04", name: "Orange" },
-          { color: "#FFF475", name: "Yellow" }
+        [{
+            color: "#FFFFFF",
+            name: "White"
+          },
+          {
+            color: "#F28B82",
+            name: "Red"
+          },
+          {
+            color: "#FBBC04",
+            name: "Orange"
+          },
+          {
+            color: "#FFF475",
+            name: "Yellow"
+          }
         ],
 
-        [
-          { color: "#CCFF90", name: "Green" },
-          { color: "#A7FFEB", name: "Teal" },
-          { color: "#CBF0F8", name: "Blue" },
-          { color: "#AECBFA", name: "Darkblue" }
+        [{
+            color: "#CCFF90",
+            name: "Green"
+          },
+          {
+            color: "#A7FFEB",
+            name: "Teal"
+          },
+          {
+            color: "#CBF0F8",
+            name: "Blue"
+          },
+          {
+            color: "#AECBFA",
+            name: "Darkblue"
+          }
         ],
 
-        [
-          { color: "#D7AEFB", name: "Purple" },
-          { color: "#FDCFE8", name: "Pink" },
-          { color: "#E6C9A8", name: "Brown" },
-          { color: "#E8EAED", name: "Gray" }
+        [{
+            color: "#D7AEFB",
+            name: "Purple"
+          },
+          {
+            color: "#FDCFE8",
+            name: "Pink"
+          },
+          {
+            color: "#E6C9A8",
+            name: "Brown"
+          },
+          {
+            color: "#E8EAED",
+            name: "Gray"
+          }
         ]
       ],
-      image: String
+      image: String,
+      labelArray: [],
+      userInput: "",
+      ailabel: []
     };
   },
   computed: {},
-  mounted() { },
+  mounted() {
+    noteservice.getLabel().then(res => {
+      this.labelArray = res.data;
+      for (let index = 0; index < this.labelArray.length; index++) {
+        this.ailabel.push(this.labelArray[index].label)
+      }
+
+    });
+  },
   methods: {
+    reverse,
+    filterBy,
+    findBy,
     colorsEdit(color, card) {
       if (card == undefined) {
         this.$emit("cardcolor", color);
@@ -59,7 +117,9 @@ export default {
         console.log(data, "hnbnnnnnnnnnnnnnn");
       });
     },
-
+    reverseFlag() {
+      this.flag1 = !this.flag1
+    },
     doArchive(card) {
       // console.log(card,"cardddd")
       // console.log(card._id, "cardidddddddddd")
@@ -114,6 +174,7 @@ export default {
     isDeleted(card) {
       card.trash = true;
       this.$emit("deleteNote", card);
+
     },
     processFile(e) {
       console.log(e);
@@ -121,11 +182,16 @@ export default {
       this.image = e.target.files[0].name;
       // this.$emit("image",this.image)
     },
-    doThat() {
-      document.getElementById("menu").addEventListener('click', function (event) { 
-        alert("click outside"); 
-        event.stopPropagation(); 
-    });
+    addlabel(card, label) {
+      console.log(card, label, "xxxxxxxxxxxxxxxxxxxxxxxxxx");
+      noteservice.saveLabeltoNote({
+        "noteID": [card._id],
+        "label": label.label
+      }).then(result => {
+        console.log("label select ", result);
+        card.label.push(label.label)
+
+      })
     }
   }
 };

@@ -1,8 +1,15 @@
 import VueRouter from "vue-router";
 import Vue from "vue";
-import { mdbInput, mdbContainer } from "mdbvue";
+import {
+  mdbInput,
+  mdbContainer
+} from "mdbvue";
 import router from "../../router";
 import noteService from "../../service/noteservice";
+import {
+  serverBus
+} from "../../main";
+
 Vue.use(VueRouter);
 export default {
   name: "dashboard",
@@ -27,6 +34,7 @@ export default {
       url: String,
       image: String,
       labelArray: [],
+      grid: false,
       employees: [
         "Jim Halpert",
         "Dwight Schrute",
@@ -135,6 +143,11 @@ export default {
         localStorage.setItem('image', res.data)
 
       })
+    },
+    serverSelected() {
+      // Using the server bus
+      this.grid = !this.grid;
+      serverBus.$emit('serverSelected', this.grid);
     }
   }
 };

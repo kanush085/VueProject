@@ -1,51 +1,62 @@
 <section>
-  <div class="disnote">
+  <div v-bind:class="view === true ? 'listview' :' gridview' ">
+    <div class="disnote">
 
-    <md-card class="mdcard" v-for='array in card' :key='array.id' v-bind:style="{'background-color': array.color}">
-      <div>
-        <div style="display: flex;">
-          <div class="title"  @click="showDialogpop(array)">
-            {{array.title}}
-          </div>
-          <div style="height: 36px;" v-if="!trash" class="pinbar">
-            <md-button v-if='array.pinned' class="md-icon-button" @click=doUnPinned(array)>
-              <img src="../../assets/unpinbar.svg" alt="" srcset="">
-            </md-button>
-            <md-button v-if='!array.pinned' class="md-icon-button" @click="pinned(array)">
-              <img src="../../assets/pin.svg" alt="" srcset="">
-            </md-button>
-          </div>
-        </div>
-        <div class="dec">
-          {{array.description}}
-        </div>
-
+      <md-card class="mdcard" v-for='array in card' :key='array.id' v-bind:style="{'background-color': array.color}">
         <div>
-          <md-chip class="chip" md-deletable>Decsl</md-chip>
-        </div>
-        <div v-if="trash" style="display: flex;">
-          <div class="trash">
-            <md-button class="md-icon-button" @click="deleteForever(array)">
-              <img src="../../assets/deleteforever.svg" alt="" srcset="">
-            </md-button>
-            <md-tooltip md-direction="bottom">Delete forever </md-tooltip>
-
+          <div style="display: flex;">
+            <div class="title" @click="showDialogpop(array)">
+              {{array.title}}
+            </div>
+            <div style="height: 36px;" v-if="!trash" class="pinbar">
+              <md-button v-if='array.pinned' class="md-icon-button" @click=doUnPinned(array)>
+                <img src="../../assets/unpinbar.svg" alt="" srcset="">
+              </md-button>
+              <md-button v-if='!array.pinned' class="md-icon-button" @click="pinned(array)">
+                <img src="../../assets/pin.svg" alt="" srcset="">
+              </md-button>
+            </div>
           </div>
-          <div class="trash">
-            <md-button class="md-icon-button" @click="restore(array)">
-              <img src="../../assets/restore.svg" alt="" srcset="">
-            </md-button>
-            <md-tooltip md-direction="bottom">Restore</md-tooltip>
+          <div class="dec">
+            {{array.description}}
+          </div>
 
+          <div style="display: flex">
+
+            <div v-for="label in array.label">
+              <div v-if='label != ""'>
+                <!-- <mat-chip>
+                        {{labels}}
+                        <mat-icon matChipRemove (click)="deletelabel(array,labels)">cancel
+                        </mat-icon>
+                    </mat-chip> -->
+                <md-chip class="chip" @md-delete=deletelabel(array,label) md-deletable>{{label}}</md-chip>
+              </div>
+            </div>
+          </div>
+          <div v-if="trash" style="display: flex;">
+            <div class="trash">
+              <md-button class="md-icon-button" @click="deleteForever(array)">
+                <img src="../../assets/deleteforever.svg" alt="" srcset="">
+              </md-button>
+              <md-tooltip md-direction="bottom">Delete forever </md-tooltip>
+
+            </div>
+            <div class="trash">
+              <md-button class="md-icon-button" @click="restore(array)">
+                <img src="../../assets/restore.svg" alt="" srcset="">
+              </md-button>
+              <md-tooltip md-direction="bottom">Restore</md-tooltip>
+
+            </div>
+          </div>
+          <div v-if="!trash">
+            <iconlist class="icon" :notecard="array" :more="archived" @card="archive" @unarchivecard="unarchive"
+              @deleteNote="trashNote"></iconlist>
           </div>
         </div>
-        <div v-if="!trash">
-          <iconlist class="icon" :notecard="array" :more="archived" @card="archive" @unarchivecard="unarchive"
-            @deleteNote="trashNote"></iconlist>
-        </div>
-      </div>
-    </md-card>
-
+      </md-card>
+    </div>
   </div>
   <div>
     <md-dialog :md-active.sync="showDialog" v-bind:style="{'background-color':updatecolor}">
@@ -83,7 +94,7 @@
         </div>
       </div>
 
- 
+
 
       <!-- </md-card> -->
       <!-- </md-content> -->

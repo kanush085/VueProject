@@ -1,5 +1,11 @@
-import { validationMixin } from "vuelidate";
-import { required, email, minLength } from "vuelidate/lib/validators";
+import {
+  validationMixin
+} from "vuelidate";
+import {
+  required,
+  email,
+  minLength
+} from "vuelidate/lib/validators";
 import router from "../../router";
 import service from "../../service/userservice";
 
@@ -10,6 +16,8 @@ export default {
   props: [],
   data() {
     return {
+      hello: 'welcome to Vue JS',
+      books: 0,
       loading: false,
       form: {
         email: null,
@@ -34,7 +42,13 @@ export default {
     }
   },
   computed: {},
-  mounted() {},
+
+  updated() {
+    alert('Updated hook has been called');
+  },
+  mounted() {
+    this.$data.hello = 'lalalalallalalalalaalal';
+  },
   methods: {
     getValidationClass(fieldName) {
       const field = this.$v.form[fieldName];

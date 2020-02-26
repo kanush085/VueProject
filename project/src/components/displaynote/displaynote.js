@@ -1,9 +1,14 @@
 import iconlist from "../iconlist";
 // import note  from "../note";
 import noteService from "../../service/noteservice";
+import {
+  serverBus
+} from "../../main";
 export default {
   name: "displaynote",
-  components: { iconlist },
+  components: {
+    iconlist
+  },
   props: {
     card: {
       type: Array,
@@ -24,12 +29,20 @@ export default {
       updatetitle: String,
       updatedescription: String,
       updatecard: Object,
-      updatecolor: String
+      updatecolor: String,
+      view: Boolean,
     };
   },
   computed: {},
-  mounted() {
+  created() {
+    // Using the server bus
+    serverBus.$on('serverSelected', (server) => {
+      this.view = server;
+
+    });
   },
+
+  mounted() {},
   methods: {
     archive(e) {
       let ind = this.card.indexOf(e);
@@ -117,13 +130,26 @@ export default {
       // if ((this.updatetitle === this.updatecard.title) || (this.updateDescription === this.updatecard.description)) {
       //   return
       // } else {
-        noteService.updateNote(data).then(res => {
-          console.log(res);
-          this.updatecard.title = this.updatetitle;
-          this.updatecard.description = this.updatedescription;
-        })
+      noteService.updateNote(data).then(res => {
+        console.log(res);
+        this.updatecard.title = this.updatetitle;
+        this.updatecard.description = this.updatedescription;
+      })
       // }
 
+    },
+    deletelabel(card, label) {
+      noteService.deleteNoteLabel({
+        "noteID": [card._id],
+        "label": label
+      }).then(data => {
+        console.log("After deleting the label ", data);
+        let ind = card.label.indexOf(label)
+        if (ind != -1) {
+          card.label.splice(ind, 1)
+        }
+
+      })
     }
   }
 };

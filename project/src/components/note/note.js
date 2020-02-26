@@ -7,7 +7,10 @@ import noteservice from "../../service/noteservice";
 // Vue.forceUpdate();
 export default {
   name: "note",
-  components: { takenote, displaynote },
+  components: {
+    takenote,
+    displaynote
+  },
   props: [],
   data() {
     return {
@@ -18,6 +21,13 @@ export default {
   },
   computed: {},
   mounted() {
+
+
+  },
+
+  created() {
+    console.log(localStorage.getItem('firstname'));
+
     service.getNotes().then(res => {
 
       console.log("dsssssssssssssssssssssssssssssssssssssss");
@@ -27,18 +37,13 @@ export default {
       for (let i = 0; i < res.data.length; i++) {
         if (!res.data[i].archive && !res.data[i].trash && res.data[i].pinned) {
           this.cards.push(res.data[i]);
-        }
-        else if (!res.data[i].archive && !res.data[i].trash && !res.data[i].pinned) {
+        } else if (!res.data[i].archive && !res.data[i].trash && !res.data[i].pinned) {
           this.Unpinnedcards.push(res.data[i])
         }
       }
       this.cards = this.cards.slice().reverse();
       this.Unpinnedcards = this.Unpinnedcards.slice().reverse();
     });
-
-  },
-
-  created() {
     this.subscription = noteservice.getMessage().subscribe(message => {
       console.log(message, "ssssssss");
 
@@ -50,8 +55,7 @@ export default {
           for (let i = 0; i < res.data.length; i++) {
             if (!res.data[i].archive && !res.data[i].trash && res.data[i].pinned) {
               this.cards.push(res.data[i]);
-            }
-            else if (!res.data[i].archive && !res.data[i].trash && !res.data[i].pinned) {
+            } else if (!res.data[i].archive && !res.data[i].trash && !res.data[i].pinned) {
               this.Unpinnedcards.push(res.data[i])
             }
           }

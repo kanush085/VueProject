@@ -24,7 +24,9 @@ app.use(function (req, res, next) {
     next();
 });
 
-app.use(bodyParser.urlencoded({ extended: true }))
+app.use(bodyParser.urlencoded({
+    extended: true
+}))
 /**
  * parse application/json
  */
@@ -36,7 +38,9 @@ app.use(responseTime());
 app.use(cors())
 app.use('/', route);
 app.get('/', (req, res) => {
-    res.json({ "message": "welcome to FundooNotes application. Take notes quickly, organize and keep track of all your notes" });
+    res.json({
+        "message": "welcome to FundooNotes application. Take notes quickly, organize and keep track of all your notes"
+    });
 });
 console.log("test ", process.env.NODE_ENV)
 var env = process.env.NODE_ENV || 'local';

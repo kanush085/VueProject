@@ -10,8 +10,7 @@ module.exports = {
         return client.get(`notesRedis:${query + userid}`, (err, result) => {
             if (err) {
                 callback(err)
-            }
-            else {                
+            } else {
                 callback(null, result)
             }
         })
@@ -25,13 +24,11 @@ module.exports = {
     },
 
     deleteRedisNotes(userid) {
-        console.log(userid,"sdjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj");
-        
         client.del(`notesRedis:${query + userid}`, JSON.stringify({
             source: 'Redis cache',
         }), (err, data) => {
             if (err) {
-                console.log(err,"xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
+                console.log(err);
 
             } else {
                 console.log(data, "deleted");

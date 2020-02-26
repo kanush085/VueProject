@@ -33,8 +33,7 @@ exports.getNotes = (data, callback) => {
         if (err) {
             console.log("service error");
             return callback(err);
-        }
-        else {
+        } else {
             return callback(null, result);
         }
     })
@@ -139,9 +138,9 @@ exports.updateColor = (noteID, color) => {
  * @param {*} callback 
  */
 
-exports.editTitle = (noteID, updateTitle,updateDescription, callback) => {
+exports.editTitle = (noteID, updateTitle, updateDescription, callback) => {
     console.log("came to editTitle note service");
-    noteModel.editTitle(noteID, updateTitle,updateDescription, (err, result) => {
+    noteModel.editTitle(noteID, updateTitle, updateDescription, (err, result) => {
         if (err) {
             callback(err);
         } else {

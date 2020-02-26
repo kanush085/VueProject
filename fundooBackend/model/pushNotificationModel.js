@@ -12,32 +12,33 @@ const pushnotificationSchema = new mongoose.Schema({
         required: [true, 'firebasetoken is required']
     }
 }, {
-        timestamps: true
-    });
+    timestamps: true
+});
 
 var push = mongoose.model('pushnotification', pushnotificationSchema)
 
-function notificationModel() { }
+function notificationModel() {}
 
 
 notificationModel.prototype.pushNotification = (req, callBack) => {
     push.findOneAndUpdate({
         userId: req.body.userId
     }, {
-            $set: {
-                firebasetoken: req.body.firebasetoken
-            }
-        },
-        { upsert: true, new: true }
-        , (err, result) => {
-            if (err) {
-                console.log("Model not found");
-                callBack(err);
-            } else {
-                console.log("Push Notification added Successfully");
-                callBack(null, result);
-            }
-        })
+        $set: {
+            firebasetoken: req.body.firebasetoken
+        }
+    }, {
+        upsert: true,
+        new: true
+    }, (err, result) => {
+        if (err) {
+            console.log("Model not found");
+            callBack(err);
+        } else {
+            console.log("Push Notification added Successfully");
+            callBack(null, result);
+        }
+    })
 }
 
 

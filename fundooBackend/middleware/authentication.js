@@ -29,6 +29,8 @@ exports.auth = (req, res, next) => {
                     message: 'Token is not valid..!'
                 });
             } else {
+                console.log(decoded, "sssssssaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaasssssssssssssss");
+
                 req.decoded = decoded;
                 next();
             }
@@ -46,38 +48,40 @@ exports.auth = (req, res, next) => {
 
 exports.checkTokenAuth = (req, res, next) => {
     // console.log("reuest===>hhhhhhhhhhhhhhhhhh", req.body);
-     // console.log("reuest===>", req.headers);\
-     console.log("////////////////////////");
-     
-     
-     var token1 = req.headers.token;
+    // console.log("reuest===>", req.headers);\
+    console.log("////////////////////////");
+
+
+    var token1 = req.headers.token;
     //  console.log(token1);
-     
-     /**
-      * 
-      **/
-     if (token1) {
-         /**
-          * @description:verifies secret and checks expression
-          **/
-         jwt.verify(token1, 'secretkey-auth', (err, decoded) => {
-             if (err) {
-                 return res.status(401).send({
-                     status: false,
-                     message: 'Unauthorised access, please provide valid token!'
-                 });
-             } else {
-                 req.decoded = decoded;                 
-                 next();
-             }
-         });
-     } else {
-         /**
-          * @description:if there is no token return an error
-          **/
-         return res.send({
-             status: false,
-             message: 'No token provided!!'
-         });
-     }
- }
+
+    /**
+     * 
+     **/
+    if (token1) {
+        /**
+         * @description:verifies secret and checks expression
+         **/
+        jwt.verify(token1, 'secretkey-auth', (err, decoded) => {
+            if (err) {
+                return res.status(401).send({
+                    status: false,
+                    message: 'Unauthorised access, please provide valid token!'
+                });
+            } else {
+                console.log(decoded, "sssssssaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaasssssssssssssss");
+
+                req.decoded = decoded;
+                next();
+            }
+        });
+    } else {
+        /**
+         * @description:if there is no token return an error
+         **/
+        return res.send({
+            status: false,
+            message: 'No token provided!!'
+        });
+    }
+}

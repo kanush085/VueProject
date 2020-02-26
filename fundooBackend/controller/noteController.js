@@ -19,7 +19,7 @@ exports.createNote = (req, res) => {
             return res.status(422).send(response);
         } else {
             // var obj = { title: req.body.title, description: req.body.description }
-            console.log(req.body);
+            console.log(req.body, "shdyuhddddddddddddddddddddddd");
 
             noteService.createNote(req, (err, result) => {
                 if (err) {
@@ -288,7 +288,7 @@ exports.editTitle = (req, res) => {
             var noteID = req.body.noteID;
             var updateTitle = req.body.title;
             var updateDescription = req.body.updateDescription;
-            noteService.editTitle(noteID,updateTitle, updateDescription, (err, result) => {
+            noteService.editTitle(noteID, updateTitle, updateDescription, (err, result) => {
                 if (err) {
                     responseResult.status = false;
                     responseResult.error = err
@@ -388,8 +388,7 @@ exports.doPinned = (req, res) => {
             response.status = false;
             response.error = errors
             return res.status(422).send(response)
-        }
-        else {
+        } else {
             var responseResult = {};
             var noteID = req.body.noteID;
             var doPinned = req.body.pinned;
@@ -424,8 +423,7 @@ exports.reminder = (req, res) => {
             response.status = false;
             response.error = errors
             return res.status(422).send(response)
-        }
-        else {
+        } else {
             var noteID = req.body.noteID;
             var reminderNote = req.body.reminder
             noteService.reminder(noteID, reminderNote, (err, result) => {
@@ -460,8 +458,7 @@ exports.pushNotification = (req, res) => {
         responseResult.status = false;
         responseResult.error = errors
         return res.status(422).send(responseResult)
-    }
-    else {
+    } else {
 
         noteService.pushNotification(req, (err, result) => {
             var response = {}
@@ -486,8 +483,7 @@ exports.sendNotification = (req, res) => {
         responseResult.status = false;
         responseResult.error = errors
         return res.status(422).send(responseResult)
-    }
-    else {
+    } else {
         var obj = req.params.userId
         console.log("USER IS +++", obj);
 
@@ -529,8 +525,7 @@ exports.createLabel = (req, res) => {
                 response.error = err
                 return res.status(500).send(response)
 
-            }
-            else {
+            } else {
                 response.status = true;
                 response.data = result;
                 return res.status(200).send(response)
@@ -587,8 +582,7 @@ exports.deleteLabel = (req, res) => {
             response.status = false;
             response.error = errors
             return res.status(422).send(response)
-        }
-        else {
+        } else {
             var responseResult = {}
             labelID = req.body.labelID;
             noteService.deleteLabel(labelID, (err, result) => {
@@ -597,8 +591,7 @@ exports.deleteLabel = (req, res) => {
                     responseResult.error = err;
 
                     return res.status(500).send(responseResult)
-                }
-                else {
+                } else {
                     responseResult.status = true;
                     responseResult.data = result;
                     return res.status(200).send(responseResult)
@@ -621,8 +614,7 @@ exports.editLabel = (req, res) => {
             response.status = false;
             response.error = errors
             return res.status(422).send(response)
-        }
-        else {
+        } else {
             var responseResult = {}
             labelID = req.body.labelID;
             updateLabel = req.body.label;
@@ -631,8 +623,7 @@ exports.editLabel = (req, res) => {
                     responseResult.status = false;
                     responseResult.error = err;
                     return res.status(500).send(responseResult)
-                }
-                else {
+                } else {
                     responseResult.status = true;
                     responseResult.data = result
                     return res.status(200).send(responseResult)
@@ -665,8 +656,7 @@ exports.saveLabel = (req, res) => {
                     responseResult.error = err
                     return res.status(500).send(responseResult)
 
-                }
-                else {
+                } else {
                     rediscache.deleteRedisNotes(req.decoded.payload.user_id)
                     responseResult.status = true;
                     responseResult.data = result;
@@ -701,8 +691,7 @@ exports.deleteNoteLabel = (req, res) => {
                     responseResult.error = err
                     return res.status(500).send(responseResult)
 
-                }
-                else {
+                } else {
                     rediscache.deleteRedisNotes(req.decoded.payload.user_id)
                     responseResult.status = true;
                     responseResult.data = result;

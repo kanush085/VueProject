@@ -57,11 +57,32 @@
           </md-menu-item>
           <md-menu-item>
             <md-menu md-size="medium" :md-offset-x="127" :md-offset-y="-36">
-              <div md-menu-trigger v-on:click.stop>Start</div>
+              <div md-menu-trigger v-on:click.stop>Add label</div>
               <md-menu-content>
-                <md-menu-item>My Item 1</md-menu-item>
-                <md-menu-item>My Item 2</md-menu-item>
-                <md-menu-item>My Item 3</md-menu-item>
+                <div>
+                  <div class="labelnote">Label note</div>
+                  <input maxlength="50" v-model="userInput" placeholder="Enter label name" class="inputlabel"
+                    @click="reverseFlag()" v-on:click.stop>
+                </div>
+                <div v-if='flag1==true' v-for="label in  filterBy(labelArray, userInput)" :key="label._id">
+                  <md-checkbox v-model="Addlabel" :value="label.label" @change=addlabel(notecard,label)>
+                    {{label.label}}
+                  </md-checkbox>
+                </div>
+                <div v-if='flag1==false' v-for="label in labelArray">
+                  <md-checkbox :value="label" @change=addlabel(notecard,label) v-model="checklabel">
+                    {{label.label}}
+                  </md-checkbox>
+                </div>
+
+                <div v-if='flag1==true' class="createSerachlabel">
+                  <div class="fun">
+                    <img src="../../assets/adddlabels.svg">
+                  </div>
+                  <div class="hello">
+                    Create " {{userInput}}"
+                  </div>
+                </div>
               </md-menu-content>
             </md-menu>
           </md-menu-item>

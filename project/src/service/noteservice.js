@@ -1,12 +1,16 @@
-import { Subject } from "rxjs";
+import {
+  Subject
+} from "rxjs";
 import axios from "axios";
+
 const API_URL = "http://localhost:3000";
 const subject = new Subject();
 
 export default {
-  sendMessage: message => subject.next({ text: message }),
+  sendMessage: message => subject.next({
+    text: message
+  }),
   getMessage: () => subject.asObservable(),
-
   updateColor(data) {
     return axios
       .put(`${API_URL}/updateColor`, data, {
@@ -92,41 +96,59 @@ export default {
       })
       .then(res => res.data);
   },
-  doPinned(data)
-  {
+  doPinned(data) {
     return axios
-    .put(`${API_URL}/doPinned`, data, {
-      method: "PUT",
-      headers: {
-        token: localStorage.getItem("token")
-      }
-    })
-    .then(res => res.data);
+      .put(`${API_URL}/doPinned`, data, {
+        method: "PUT",
+        headers: {
+          token: localStorage.getItem("token")
+        }
+      })
+      .then(res => res.data);
   },
 
-  setprofilepic(data)
-  {
+  setprofilepic(data) {
     return axios
-    .put(`${API_URL}/setProfilePic`, data, {
-      method: "PUT",
-      headers: {
-        token: localStorage.getItem("token")
-      }
-    })
-    .then(res => res.data);
+      .put(`${API_URL}/setProfilePic`, data, {
+        method: "PUT",
+        headers: {
+          token: localStorage.getItem("token")
+        }
+      })
+      .then(res => res.data);
 
   },
-  updateNote(data)
-  {
+  updateNote(data) {
     return axios
-    .put(`${API_URL}/editTitle`, data, {
-      method: "PUT",
-      headers: {
-        token: localStorage.getItem("token")
-      }
-    })
-    .then(res => res.data);
+      .put(`${API_URL}/editTitle`, data, {
+        method: "PUT",
+        headers: {
+          token: localStorage.getItem("token")
+        }
+      })
+      .then(res => res.data);
 
+  },
+  saveLabeltoNote(data) {
+    return axios
+      .put(`${API_URL}/saveLabel`, data, {
+        method: "PUT",
+        headers: {
+          token: localStorage.getItem("token")
+        }
+      })
+      .then(res => res.data);
+  },
+
+  deleteNoteLabel(data) {
+    return axios
+      .put(`${API_URL}/deleteNoteLabel`, data, {
+        method: "PUT",
+        headers: {
+          token: localStorage.getItem("token")
+        }
+      })
+      .then(res => res.data);
   }
-  
+
 };
