@@ -31,7 +31,7 @@
     "nodemailer": "^5.1.1",
     "nodemailer-express-handlebars": "^3.0.0",
     "nodemon": "^1.19.4",
-    "npm": "^6.9.0",
+    "npm": "^6.14.6",
     "redis": "^2.8.0",
     "response-time": "^2.3.2",
     "winston": "^3.2.1"
